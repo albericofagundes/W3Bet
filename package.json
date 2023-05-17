@@ -1,5 +1,21 @@
 {
+  "name": "zaptrivia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Alberico Fagundes",
+  "license": "ISC",
   "dependencies": {
-    "pg": "^8.11.0"
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "openai": "^3.2.1",
+    "pg": "^8.10.0",
+    "venom-bot": "^5.0.0"
   }
 }

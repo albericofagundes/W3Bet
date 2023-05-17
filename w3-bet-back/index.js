@@ -1,24 +1,43 @@
-const { Pool } = require("pg");
+import pkg from "pg";
 
-const pool = new Pool({
+const { Pool } = pkg;
+
+const dbConfig = {
   user: "postgres",
   host: "localhost",
   database: "db_w3bets",
   password: "99411520",
   port: 5433,
-  connectionTimeoutMillis: 9000, // Aumente esse valor conforme necessário
-});
+};
 
-// Função para realizar a conexão e enviar mensagem de sucesso ou erro
-async function conectarAoBancoDeDados() {
+const pool = new Pool(dbConfig);
+
+// Função para verificar a conexão com o banco de dados
+async function checkDatabaseConnection() {
+  const client = await pool.connect();
   try {
-    const client = await pool.connect();
-    console.log("Conexão bem-sucedida com o banco de dados!");
-    client.release(); // Liberar o cliente de volta para o pool
+    console.log("Conexão bem-sucedida ao banco de dados");
   } catch (error) {
     console.error("Erro ao conectar ao banco de dados:", error);
+    throw error;
+  } finally {
+    client.release();
   }
 }
 
-// Chamar a função para conectar ao banco de dados
-conectarAoBancoDeDados();
+// Chamada da função para verificar a conexão
+checkDatabaseConnection()
+  .then(() => {
+    console.log("Conexão bem-sucedida. Pronto para realizar consultas.");
+  })
+  .catch((error) => {
+    console.error("Erro ao verificar a conexão com o banco de dados:", error);
+  });
+
+// app.use(cors());
+
+// const corsOptions = {
+//   origin: "http://localhost:4200",
+// };
+
+// app.use(cors(corsOptions));
